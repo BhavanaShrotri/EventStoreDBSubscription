@@ -15,11 +15,14 @@ static Task<PersistentSubscription> SubscribeAsync(EventStorePersistentSubscript
     return client.SubscribeToStreamAsync("HelloWorld", "TestGroup",
         async (subscription, evt, retryCount, cancelToken) =>
         {
-           // await HandleEvent(evnt);
+            // await HandleEvent(evnt);
             await subscription.Ack(evt);
             Console.WriteLine("Received: " + Encoding.UTF8.GetString(evt.Event.Data.Span));
 
             //return Task.CompletedTask;
+        }, (subscription, dropReason, exception) =>
+        {
+            Console.WriteLine(" Subscription was dropped due to { dropReason}. { exception}");
         });
 }
 
