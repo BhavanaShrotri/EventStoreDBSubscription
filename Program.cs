@@ -6,7 +6,7 @@ using System.Text;
 
 var client = new EventStorePersistentSubscriptionsClient(EventStoreClientSettings.Create("esdb://localhost:2113?tls=false"));
 
-// await client.CreateAsync("HelloWorld", "TestGroup", new PersistentSubscriptionSettings(startFrom: StreamPosition.End));
+await client.CreateAsync("HelloWorld", "TestGroup", new PersistentSubscriptionSettings(startFrom: StreamPosition.End));
 
 await SubscribeAsync(client);
 
